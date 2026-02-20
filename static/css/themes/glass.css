@@ -1,0 +1,133 @@
+/* ============================================================
+   THEME: GLASS — Glassmorphism with animated gradient blobs
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+    --bg:            #0f0c29;
+    --surface:       rgba(255, 255, 255, 0.1);
+    --primary:       #a78bfa;
+    --primary-hover: #7c3aed;
+    --danger:        #f87171;
+    --secondary:     rgba(255,255,255,0.2);
+    --text:          #f0e6ff;
+    --text-muted:    rgba(240,230,255,0.6);
+    --border:        rgba(255, 255, 255, 0.2);
+    --nav-bg:        rgba(15, 12, 41, 0.7);
+    --nav-text:      rgba(240,230,255,0.7);
+    --nav-brand:     #a78bfa;
+    --shadow:        0 8px 32px rgba(0,0,0,0.3);
+    --shadow-lg:     0 16px 48px rgba(0,0,0,0.4);
+    --radius:        16px;
+    --radius-sm:     10px;
+    --font:          'Poppins', sans-serif;
+    --card-border-planned:  #818cf8;
+    --card-border-done:     #34d399;
+    --card-border-canceled: #f87171;
+    --status-planned-bg:    rgba(129,140,248,0.2);
+    --status-planned-text:  #818cf8;
+    --status-done-bg:       rgba(52,211,153,0.2);
+    --status-done-text:     #34d399;
+    --status-canceled-bg:   rgba(248,113,113,0.2);
+    --status-canceled-text: #f87171;
+}
+
+/* Animated gradient background */
+body {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    background-size: 400% 400%;
+    animation: gradientShift 12s ease infinite;
+    position: relative;
+    overflow-x: hidden;
+}
+
+@keyframes gradientShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Floating blobs */
+body::before, body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.5;
+    z-index: 0;
+    pointer-events: none;
+}
+body::before {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, #7c3aed, #2563eb);
+    top: -150px; left: -150px;
+    animation: blob1 10s ease-in-out infinite;
+}
+body::after {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, #ec4899, #f59e0b);
+    bottom: -100px; right: -100px;
+    animation: blob2 13s ease-in-out infinite;
+}
+
+@keyframes blob1 {
+    0%,100% { transform: translate(0,0) scale(1); }
+    33%     { transform: translate(80px, 60px) scale(1.15); }
+    66%     { transform: translate(-40px, 90px) scale(0.9); }
+}
+@keyframes blob2 {
+    0%,100% { transform: translate(0,0) scale(1); }
+    33%     { transform: translate(-60px, -80px) scale(1.1); }
+    66%     { transform: translate(40px, -40px) scale(0.95); }
+}
+
+/* Glassmorphism surfaces */
+.navbar {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    background: rgba(15,12,41,0.6) !important;
+    position: sticky; top: 0; z-index: 1000;
+}
+
+.auth-container, .form-container,
+.appointment-card, .stat,
+.admin-table, .theme-card-footer {
+    background: rgba(255,255,255,0.08) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.18) !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3) !important;
+}
+
+.appointment-card:hover {
+    background: rgba(255,255,255,0.14) !important;
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: 0 16px 48px rgba(120,80,255,0.3) !important;
+}
+
+.form-group input, .form-group select, .form-group textarea, .status-form select {
+    background: rgba(255,255,255,0.08) !important;
+    border: 1px solid rgba(255,255,255,0.2) !important;
+    color: var(--text) !important;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #7c3aed, #2563eb);
+    border: none;
+    box-shadow: 0 4px 15px rgba(124,58,237,0.4);
+}
+.btn-primary:hover {
+    box-shadow: 0 6px 25px rgba(124,58,237,0.6);
+    transform: translateY(-2px);
+}
+
+.admin-table th { background: rgba(255,255,255,0.05) !important; }
+.admin-table td { border-color: rgba(255,255,255,0.08) !important; }
+
+.theme-preview.glass-preview {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #ec4899);
+}
+
+.container { position: relative; z-index: 1; }

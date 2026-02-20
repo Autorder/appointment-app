@@ -1,0 +1,193 @@
+/* ============================================================
+   THEME: PAPER — Editorial brutalist with ink & texture
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap');
+
+:root {
+    --bg:            #f5efe0;
+    --surface:       #fffef7;
+    --primary:       #1a1a1a;
+    --primary-hover: #333;
+    --danger:        #c0392b;
+    --secondary:     #888;
+    --text:          #1a1a1a;
+    --text-muted:    #666;
+    --border:        #1a1a1a;
+    --nav-bg:        #1a1a1a;
+    --nav-text:      #f5efe0;
+    --nav-brand:     #f5efe0;
+    --shadow:        4px 4px 0 #1a1a1a;
+    --shadow-lg:     6px 6px 0 #1a1a1a;
+    --radius:        0px;
+    --radius-sm:     0px;
+    --font:          'IBM Plex Mono', monospace;
+    --card-border-planned:  #1a1a1a;
+    --card-border-done:     #1a1a1a;
+    --card-border-canceled: #c0392b;
+    --status-planned-bg:    #1a1a1a;
+    --status-planned-text:  #f5efe0;
+    --status-done-bg:       #f5efe0;
+    --status-done-text:     #1a1a1a;
+    --status-canceled-bg:   #c0392b;
+    --status-canceled-text: #f5efe0;
+}
+
+/* Graph paper background */
+body {
+    background-color: #f5efe0;
+    background-image:
+        linear-gradient(rgba(26,26,26,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26,26,26,0.07) 1px, transparent 1px);
+    background-size: 24px 24px;
+    font-family: var(--font);
+}
+
+/* Decorative torn edge on navbar */
+.navbar {
+    border-bottom: 3px solid #1a1a1a;
+    box-shadow: 0 4px 0 #1a1a1a;
+    position: relative;
+}
+
+.nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+h1, h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 3px solid #1a1a1a;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.appointment-card {
+    background: var(--surface) !important;
+    border: 2px solid #1a1a1a !important;
+    box-shadow: var(--shadow) !important;
+    border-radius: 0 !important;
+    border-left: 6px solid #1a1a1a !important;
+    transition: none !important;
+    position: relative;
+}
+
+.appointment-card.status-done {
+    border-left: 6px solid #1a1a1a !important;
+}
+.appointment-card.status-canceled {
+    border-left: 6px solid #c0392b !important;
+    opacity: 1 !important;
+}
+
+.appointment-card::before {
+    content: '';
+    position: absolute;
+    top: 6px; left: 6px;
+    right: -6px; bottom: -6px;
+    background: #1a1a1a;
+    z-index: -1;
+}
+
+.appointment-card:hover {
+    transform: translate(-2px, -2px) !important;
+    box-shadow: 8px 8px 0 #1a1a1a !important;
+}
+
+.apt-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.05rem; }
+
+.status-badge {
+    border: 1px solid #1a1a1a;
+    border-radius: 0;
+    font-family: var(--font);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.65rem;
+}
+
+.stat {
+    background: var(--surface) !important;
+    border: 2px solid #1a1a1a !important;
+    box-shadow: var(--shadow) !important;
+    border-radius: 0 !important;
+    position: relative;
+}
+.stat::before {
+    content: '';
+    position: absolute;
+    top: 4px; left: 4px;
+    right: -4px; bottom: -4px;
+    background: #1a1a1a;
+    z-index: -1;
+}
+.stat.planned .stat-number { color: #1a1a1a; }
+.stat.done .stat-number    { color: #1a1a1a; }
+.stat.canceled .stat-number { color: #c0392b; }
+.stat-number { font-family: 'Playfair Display', serif; }
+
+.btn {
+    border: 2px solid #1a1a1a !important;
+    border-radius: 0 !important;
+    font-family: var(--font);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    position: relative;
+    box-shadow: 3px 3px 0 #1a1a1a;
+    transition: none !important;
+}
+.btn:hover {
+    transform: translate(-2px, -2px) !important;
+    box-shadow: 5px 5px 0 #1a1a1a !important;
+    opacity: 1 !important;
+}
+.btn-primary { background: #1a1a1a !important; color: #f5efe0 !important; }
+.btn-danger  { background: #c0392b !important; color: white !important; border-color: #c0392b !important; box-shadow: 3px 3px 0 #7f1e14 !important; }
+.btn-secondary { background: var(--surface) !important; color: #1a1a1a !important; }
+
+.auth-container, .form-container {
+    border: 2px solid #1a1a1a !important;
+    border-radius: 0 !important;
+    box-shadow: 6px 6px 0 #1a1a1a !important;
+    position: relative;
+}
+
+.form-group input, .form-group select, .form-group textarea, .status-form select {
+    border: 2px solid #1a1a1a !important;
+    border-radius: 0 !important;
+    background: #fffef7 !important;
+}
+.form-group input:focus, .form-group textarea:focus {
+    outline: 3px solid #1a1a1a !important;
+    outline-offset: 1px;
+    box-shadow: none !important;
+}
+
+.admin-table {
+    border: 2px solid #1a1a1a !important;
+    border-radius: 0 !important;
+    box-shadow: var(--shadow) !important;
+}
+.admin-table th { background: #1a1a1a !important; color: #f5efe0 !important; font-family: var(--font); }
+.admin-table td { border-color: #1a1a1a !important; }
+
+.theme-preview.paper-preview {
+    background-color: #f5efe0;
+    background-image:
+        linear-gradient(rgba(26,26,26,0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26,26,26,0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.alert-success { background: #f5efe0; color: #1a1a1a; border: 2px solid #1a1a1a; border-radius: 0; }
+.alert-error   { background: #f5efe0; color: #c0392b; border: 2px solid #c0392b; border-radius: 0; }
+
+.nav-links a { text-transform: uppercase; letter-spacing: 1px; font-size: 0.75rem !important; }

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Admin Panel{% endblock %}
+
+{% block content %}
+<h1>Admin Panel</h1>
+
+<!-- Users Table -->
+<section class="admin-section">
+    <h2>Users ({{ users|length }})</h2>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Joined</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    <span class="status-badge {{ 'status-done' if user.is_admin else 'status-planned' }}">
+                        {{ 'Admin' if user.is_admin else 'User' }}
+                    </span>
+                </td>
+                <td>{{ user.created_at.strftime('%b %d, %Y') }}</td>
+                <td>
+                    {% if user.id != session.user_id %}
+                    <form method="POST" action="{{ url_for('toggle_admin', id=user.id) }}" style="display:inline">
+                        <button class="btn btn-sm btn-secondary">
+                            {{ 'Demote' if user.is_admin else 'Make Admin' }}
+                        </button>
+                    </form>
+                    <form method="POST" action="{{ url_for('delete_user', id=user.id) }}" style="display:inline"
+                          onsubmit="return confirm('Delete this user and all their appointments?')">
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                    {% else %}
+                    <span style="color:#aaa;font-size:0.8rem">You</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+<!-- Appointments Table -->
+<section class="admin-section">
+    <h2>All Appointments ({{ appointments|length }})</h2>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Owner</th>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for apt in appointments %}
+            <tr>
+                <td>{{ apt.title }}</td>
+                <td>{{ apt.owner_name }}</td>
+                <td>{{ apt.date.strftime('%b %d, %Y') }}</td>
+                <td>{{ apt.category }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('admin_update_status', id=apt.id) }}">
+                        <select name="status" onchange="this.form.submit()">
+                            <option value="planned" {% if apt.status == 'planned' %}selected{% endif %}>Planned</option>
+                            <option value="done" {% if apt.status == 'done' %}selected{% endif %}>Done</option>
+                            <option value="canceled" {% if apt.status == 'canceled' %}selected{% endif %}>Canceled</option>
+                        </select>
+                    </form>
+                </td>
+                <td>
+                    <form method="POST" action="{{ url_for('admin_delete_appointment', id=apt.id) }}"
+                          onsubmit="return confirm('Delete this appointment?')">
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

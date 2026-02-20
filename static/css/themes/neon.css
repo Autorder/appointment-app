@@ -1,0 +1,185 @@
+/* ============================================================
+   THEME: NEON — Cyberpunk with scanlines and glowing effects
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap');
+
+:root {
+    --bg:            #000000;
+    --surface:       #0a0a0a;
+    --primary:       #00ff41;
+    --primary-hover: #00cc33;
+    --danger:        #ff003c;
+    --secondary:     #444;
+    --text:          #ccffcc;
+    --text-muted:    #667766;
+    --border:        #00ff4133;
+    --nav-bg:        #000000;
+    --nav-text:      #00ff41;
+    --nav-brand:     #00ff41;
+    --shadow:        0 0 20px rgba(0,255,65,0.2);
+    --shadow-lg:     0 0 40px rgba(0,255,65,0.4);
+    --radius:        4px;
+    --radius-sm:     2px;
+    --font:          'Share Tech Mono', monospace;
+    --card-border-planned:  #00bfff;
+    --card-border-done:     #00ff41;
+    --card-border-canceled: #ff003c;
+    --status-planned-bg:    rgba(0,191,255,0.1);
+    --status-planned-text:  #00bfff;
+    --status-done-bg:       rgba(0,255,65,0.1);
+    --status-done-text:     #00ff41;
+    --status-canceled-bg:   rgba(255,0,60,0.1);
+    --status-canceled-text: #ff003c;
+}
+
+body {
+    background: #000;
+    font-family: var(--font);
+}
+
+/* CRT Scanline overlay */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.08) 2px,
+        rgba(0, 0, 0, 0.08) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* Flicker animation */
+@keyframes flicker {
+    0%, 95%, 100% { opacity: 1; }
+    96%           { opacity: 0.8; }
+    97%           { opacity: 1; }
+    98%           { opacity: 0.9; }
+}
+
+body { animation: flicker 8s infinite; }
+
+/* Pulsing glow on cards */
+@keyframes neonPulse {
+    0%, 100% { box-shadow: 0 0 8px rgba(0,255,65,0.3), inset 0 0 8px rgba(0,255,65,0.03); }
+    50%      { box-shadow: 0 0 20px rgba(0,255,65,0.6), inset 0 0 20px rgba(0,255,65,0.06); }
+}
+
+@keyframes bluePulse {
+    0%, 100% { box-shadow: 0 0 8px rgba(0,191,255,0.3); }
+    50%      { box-shadow: 0 0 24px rgba(0,191,255,0.7); }
+}
+
+.navbar {
+    border-bottom: 1px solid #00ff41;
+    box-shadow: 0 0 20px rgba(0,255,65,0.3);
+}
+
+.nav-brand {
+    font-family: 'Orbitron', monospace;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41;
+    letter-spacing: 3px;
+}
+
+.nav-links a {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.75rem !important;
+}
+.nav-links a:hover { text-shadow: 0 0 8px #00ff41; color: #00ff41 !important; }
+
+h1, h2 {
+    font-family: 'Orbitron', monospace;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 8px var(--primary);
+}
+
+.appointment-card {
+    border-left: 2px solid var(--card-border-planned) !important;
+    border-top: 1px solid rgba(0,191,255,0.2);
+    border-right: 1px solid rgba(0,191,255,0.1);
+    border-bottom: 1px solid rgba(0,191,255,0.1);
+    animation: bluePulse 3s ease-in-out infinite;
+}
+
+.appointment-card.status-done {
+    border-left-color: var(--card-border-done) !important;
+    animation: neonPulse 3s ease-in-out infinite;
+}
+
+.appointment-card.status-canceled {
+    border-left-color: var(--card-border-canceled) !important;
+    animation: none;
+    opacity: 0.5;
+}
+
+.appointment-card:hover {
+    transform: translateX(4px);
+    box-shadow: 0 0 30px rgba(0,255,65,0.4) !important;
+}
+
+.stat {
+    border: 1px solid #00ff41;
+    animation: neonPulse 4s ease-in-out infinite;
+    text-align: center;
+}
+.stat-number { text-shadow: 0 0 10px currentColor; }
+
+.btn-primary {
+    background: transparent;
+    color: #00ff41;
+    border: 1px solid #00ff41;
+    box-shadow: 0 0 10px rgba(0,255,65,0.3);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.75rem;
+}
+.btn-primary:hover {
+    background: #00ff41;
+    color: #000;
+    box-shadow: 0 0 25px rgba(0,255,65,0.7);
+    opacity: 1;
+}
+
+.btn-danger {
+    background: transparent;
+    color: #ff003c;
+    border: 1px solid #ff003c;
+    box-shadow: 0 0 8px rgba(255,0,60,0.3);
+}
+.btn-danger:hover {
+    background: #ff003c;
+    color: #000;
+    box-shadow: 0 0 20px rgba(255,0,60,0.7);
+    opacity: 1;
+}
+
+.auth-container, .form-container {
+    border: 1px solid #00ff41;
+    box-shadow: 0 0 30px rgba(0,255,65,0.2), inset 0 0 30px rgba(0,255,65,0.03);
+}
+
+.form-group input, .form-group select, .form-group textarea, .status-form select {
+    border-color: #00ff4166 !important;
+    color: #00ff41 !important;
+}
+.form-group input:focus, .form-group textarea:focus {
+    border-color: #00ff41 !important;
+    box-shadow: 0 0 8px rgba(0,255,65,0.4);
+}
+
+.alert-success { background: rgba(0,255,65,0.1); color: #00ff41; border-color: #00ff41; }
+.alert-error   { background: rgba(255,0,60,0.1); color: #ff003c; border-color: #ff003c; }
+
+.theme-preview.neon-preview {
+    background: #000;
+    border: 1px solid #00ff41;
+    box-shadow: inset 0 0 30px rgba(0,255,65,0.2);
+}

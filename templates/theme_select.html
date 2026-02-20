@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Choose Theme{% endblock %}
+
+{% block content %}
+<div class="theme-page">
+    <h1>Choose Your Theme</h1>
+    <p>Pick a visual style for your workspace. Your choice is saved automatically.</p>
+
+    <div class="theme-grid">
+
+        <!-- Glass -->
+        <div class="theme-card {% if theme_name == 'glass' %}active{% endif %}">
+            <div class="theme-preview glass-preview" style="background:linear-gradient(135deg,#0f0c29,#302b63,#ec4899);">
+                <div style="background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.3);border-radius:12px;padding:1rem 1.5rem;color:white;font-family:sans-serif;">
+                    <div style="font-weight:600;margin-bottom:4px">Glass Card</div>
+                    <div style="font-size:0.75rem;opacity:0.7">Frosted · Blurred · Floating</div>
+                </div>
+            </div>
+            <div class="theme-card-footer">
+                <div>
+                    <div class="theme-card-name">Glass</div>
+                    <div class="theme-card-desc">Glassmorphism & animated blobs</div>
+                </div>
+                <form method="POST" action="{{ url_for('set_theme', name='glass') }}">
+                    <button class="btn btn-primary btn-sm">{% if theme_name == 'glass' %}Active{% else %}Select{% endif %}</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Neon -->
+        <div class="theme-card {% if theme_name == 'neon' %}active{% endif %}">
+            <div class="theme-preview" style="background:#000;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;height:160px;">
+                <div style="border:1px solid #00ff41;padding:0.8rem 1.2rem;color:#00ff41;font-family:monospace;box-shadow:0 0 15px rgba(0,255,65,0.5),inset 0 0 15px rgba(0,255,65,0.05);">
+                    <div style="font-weight:600;text-shadow:0 0 8px #00ff41">NEON_CARD.EXE</div>
+                    <div style="font-size:0.7rem;opacity:0.7;margin-top:4px">&gt; CYBERPUNK // ONLINE</div>
+                </div>
+                <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.1) 3px,rgba(0,0,0,0.1) 4px);pointer-events:none;"></div>
+            </div>
+            <div class="theme-card-footer">
+                <div>
+                    <div class="theme-card-name">Neon</div>
+                    <div class="theme-card-desc">Cyberpunk with scanlines & glow</div>
+                </div>
+                <form method="POST" action="{{ url_for('set_theme', name='neon') }}">
+                    <button class="btn btn-primary btn-sm">{% if theme_name == 'neon' %}Active{% else %}Select{% endif %}</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Space -->
+        <div class="theme-card {% if theme_name == 'space' %}active{% endif %}">
+            <div class="theme-preview" style="background:linear-gradient(135deg,#020818,#0d1b3e);background-image:radial-gradient(1px 1px at 20% 30%,white,transparent),radial-gradient(1.5px 1.5px at 60% 60%,white,transparent),radial-gradient(1px 1px at 80% 20%,white,transparent);display:flex;align-items:center;justify-content:center;height:160px;">
+                <div style="background:linear-gradient(135deg,rgba(13,27,62,0.9),rgba(17,24,39,0.9));border:1px solid rgba(99,102,241,0.4);border-radius:10px;padding:0.8rem 1.2rem;color:#e2e8f0;font-family:sans-serif;box-shadow:0 8px 24px rgba(99,102,241,0.4);transform:perspective(400px) rotateX(-8deg);">
+                    <div style="font-weight:600;color:#818cf8">3D Space Card</div>
+                    <div style="font-size:0.75rem;opacity:0.6;margin-top:4px">Floating · Orbital · Deep</div>
+                </div>
+            </div>
+            <div class="theme-card-footer">
+                <div>
+                    <div class="theme-card-name">Space</div>
+                    <div class="theme-card-desc">3D floating cards in deep space</div>
+                </div>
+                <form method="POST" action="{{ url_for('set_theme', name='space') }}">
+                    <button class="btn btn-primary btn-sm">{% if theme_name == 'space' %}Active{% else %}Select{% endif %}</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Paper -->
+        <div class="theme-card {% if theme_name == 'paper' %}active{% endif %}">
+            <div class="theme-preview" style="background-color:#f5efe0;background-image:linear-gradient(rgba(26,26,26,0.1) 1px,transparent 1px),linear-gradient(90deg,rgba(26,26,26,0.1) 1px,transparent 1px);background-size:20px 20px;display:flex;align-items:center;justify-content:center;height:160px;">
+                <div style="background:#fffef7;border:2px solid #1a1a1a;padding:0.8rem 1.2rem;color:#1a1a1a;font-family:monospace;box-shadow:4px 4px 0 #1a1a1a;">
+                    <div style="font-family:serif;font-weight:700;font-size:1rem">INK CARD</div>
+                    <div style="font-size:0.7rem;margin-top:4px;opacity:0.6">EDITORIAL // BRUTALIST</div>
+                </div>
+            </div>
+            <div class="theme-card-footer">
+                <div>
+                    <div class="theme-card-name">Paper</div>
+                    <div class="theme-card-desc">Editorial brutalist ink style</div>
+                </div>
+                <form method="POST" action="{{ url_for('set_theme', name='paper') }}">
+                    <button class="btn btn-primary btn-sm">{% if theme_name == 'paper' %}Active{% else %}Select{% endif %}</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

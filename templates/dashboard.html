@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+    <h1>My Appointments</h1>
+    <a href="{{ url_for('new_appointment') }}" class="btn btn-primary">+ New Appointment</a>
+</div>
+
+<!-- Stats Bar -->
+<div class="stats-bar">
+    <div class="stat">
+        <span class="stat-number">{{ stats.total }}</span>
+        <span class="stat-label">Total</span>
+    </div>
+    <div class="stat planned">
+        <span class="stat-number">{{ stats.planned }}</span>
+        <span class="stat-label">Planned</span>
+    </div>
+    <div class="stat done">
+        <span class="stat-number">{{ stats.done }}</span>
+        <span class="stat-label">Done</span>
+    </div>
+    <div class="stat canceled">
+        <span class="stat-number">{{ stats.canceled }}</span>
+        <span class="stat-label">Canceled</span>
+    </div>
+</div>
+
+<!-- Appointments List -->
+{% if appointments %}
+<div class="appointments-list">
+    {% for apt in appointments %}
+    <div class="appointment-card status-{{ apt.status }}">
+        <div class="apt-main">
+            <div class="apt-title">{{ apt.title }}</div>
+            <div class="apt-meta">
+                <span>{{ apt.date.strftime('%b %d, %Y') }}</span>
+                <span>{{ apt.time.strftime('%H:%M') }}</span>
+                {% if apt.location %}<span>{{ apt.location }}</span>{% endif %}
+                <span class="apt-category">{{ apt.category }}</span>
+            </div>
+            {% if apt.notes %}
+            <div class="apt-notes">{{ apt.notes }}</div>
+            {% endif %}
+        </div>
+
+        <div class="apt-actions">
+            <span class="status-badge status-{{ apt.status }}">{{ apt.status }}</span>
+
+            <form method="POST" action="{{ url_for('update_status', id=apt.id) }}" class="status-form">
+                <select name="status" onchange="this.form.submit()">
+                    <option value="planned" {% if apt.status == 'planned' %}selected{% endif %}>Planned</option>
+                    <option value="done" {% if apt.status == 'done' %}selected{% endif %}>Done</option>
+                    <option value="canceled" {% if apt.status == 'canceled' %}selected{% endif %}>Canceled</option>
+                </select>
+            </form>
+
+            <a href="{{ url_for('edit_appointment', id=apt.id) }}" class="btn btn-sm">Edit</a>
+
+            <form method="POST" action="{{ url_for('delete_appointment', id=apt.id) }}"
+                  onsubmit="return confirm('Delete this appointment?')">
+                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% else %}
+<div class="empty-state">
+    <p>No appointments yet.</p>
+    <a href="{{ url_for('new_appointment') }}" class="btn btn-primary">Create your first appointment</a>
+</div>
+{% endif %}
+{% endblock %}

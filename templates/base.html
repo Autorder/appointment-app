@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Appointment Manager{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% if theme %}
+    <link rel="stylesheet" href="{{ url_for('static', filename=theme.css) }}">
+    {% endif %}
+</head>
+<body>
+
+    {% if session.user_id %}
+    <nav class="navbar">
+        <div class="nav-brand">AppointMe</div>
+        <div class="nav-links">
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('new_appointment') }}">+ New</a>
+            {% if session.is_admin %}
+            <a href="{{ url_for('admin_panel') }}">Admin</a>
+            {% endif %}
+            <a href="{{ url_for('theme_select') }}">🎨 Theme</a>
+            <a href="{{ url_for('auth.logout') }}" class="btn-logout">Logout</a>
+        </div>
+        <div class="nav-user">Hello, {{ session.user_name }}</div>
+    </nav>
+    {% endif %}
+
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+</body>
+</html>
